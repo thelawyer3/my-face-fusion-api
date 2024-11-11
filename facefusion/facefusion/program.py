@@ -120,14 +120,29 @@ def create_output_creation_program() -> ArgumentParser:
 
 
 def create_processors_program() -> ArgumentParser:
-	program = ArgumentParser(add_help = False)
-	available_processors = list_directory('facefusion/processors/modules')
-	group_processors = program.add_argument_group('processors')
-	group_processors.add_argument('--processors', help = wording.get('help.processors').format(choices = ', '.join(available_processors)), default = config.get_str_list('processors.processors', 'face_swapper'), nargs = '+')
-	job_store.register_step_keys([ 'processors' ])
-	for processor_module in get_processors_modules(available_processors):
-		processor_module.register_args(program)
-	return program
+    program = ArgumentParser(add_help = False)
+    
+    # Ensure that available_processors is an iterable (list, tuple, etc.)
+    available_processors = list_directory('facefusion/processors/modules')
+    
+    # Check if available_processors is actually iterable (not None)
+    if not isinstance(available_processors, (list, tuple)):
+        available_processors = []
+    
+    group_processors = program.add_argument_group('processors')
+    
+    group_processors.add_argument('--processors', 
+                                  help = wording.get('help.processors').format(choices = ', '.join(available_processors)), 
+                                  default = config.get_str_list('processors.processors', 'face_swapper'), 
+                                  nargs = '+')
+    
+    job_store.register_step_keys([ 'processors' ])
+    
+    for processor_module in get_processors_modules(available_processors):
+        processor_module.register_args(program)
+    
+    return program
+
 
 
 def create_uis_program() -> ArgumentParser:
