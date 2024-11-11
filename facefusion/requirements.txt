@@ -1,3 +1,4 @@
+pip==24.3.1
 filetype==1.2.0
 gradio==4.44.0
 gradio-rangeslider==0.0.6
