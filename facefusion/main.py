@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 import uvicorn
-from default import create_gradio_ui  # Import Gradio UI function from default.py
+from facefusion.uis.layouts.default import create_gradio_ui  # Import Gradio UI function from default.py
 from facefusion.core import launch  # This function launches Gradio with state_manager configurations
 
 app = FastAPI()
