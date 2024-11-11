@@ -3,7 +3,6 @@ from typing import List, Optional, Tuple
 
 import cv2
 import numpy
-from cv2.typing import Size
 
 from facefusion.choices import image_template_sizes, video_template_sizes
 from facefusion.common_helper import is_windows
