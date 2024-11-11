@@ -11,3 +11,6 @@ tqdm==4.66.5
 scipy==1.14.1
 fastapi==0.95.0
 uvicorn==0.22.0
+boto3==1.26.0
+botocore==1.29.0
+aiobotocore==2.1.0
