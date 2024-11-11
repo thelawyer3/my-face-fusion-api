@@ -1,5 +1,3 @@
-# facefusion_ui.py (or another filename if you prefer)
-
 import gradio
 from facefusion import state_manager
 from facefusion.uis.components import (
