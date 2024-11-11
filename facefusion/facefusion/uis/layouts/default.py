@@ -51,3 +51,8 @@ def create_gradio_ui() -> gradio.Blocks:
                 with gradio.Blocks(): face_landmarker.render()
                 with gradio.Blocks(): common_options.render()
     return layout
+	
+# facefusion/facefusion/uis/layouts/default.py
+def launch_gradio_ui():
+    # Your logic for launching the Gradio UI
+    pass
