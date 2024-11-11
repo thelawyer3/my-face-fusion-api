@@ -82,8 +82,11 @@ def processors_pre_check() -> bool:
     # Get the processors list from state_manager
     processors = state_manager.get_item('processors')
     
-    # Ensure processors is iterable and not None
-    if not processors or not isinstance(processors, list):
+    # If processors is None or not set, initialize it to an empty list to prevent errors
+    if not processors:
+        processors = []  # Fallback to an empty list if processors are not initialized
+
+    if not isinstance(processors, list):
         logger.error("Processors not properly configured or initialized.", __name__)
         return False
 
