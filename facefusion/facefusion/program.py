@@ -146,13 +146,29 @@ def create_processors_program() -> ArgumentParser:
 
 
 def create_uis_program() -> ArgumentParser:
-	program = ArgumentParser(add_help = False)
-	available_ui_layouts = list_directory('facefusion/uis/layouts')
-	group_uis = program.add_argument_group('uis')
-	group_uis.add_argument('--open-browser', help = wording.get('help.open_browser'), action = 'store_true', default = config.get_bool_value('uis.open_browser'))
-	group_uis.add_argument('--ui-layouts', help = wording.get('help.ui_layouts').format(choices = ', '.join(available_ui_layouts)), default = config.get_str_list('uis.ui_layouts', 'default'), nargs = '+')
-	group_uis.add_argument('--ui-workflow', help = wording.get('help.ui_workflow'), default = config.get_str_value('uis.ui_workflow', 'instant_runner'), choices = facefusion.choices.ui_workflows)
-	return program
+    program = ArgumentParser(add_help = False)
+
+    # Ensure that available_ui_layouts is iterable (list or tuple)
+    available_ui_layouts = list_directory('facefusion/uis/layouts')
+    
+    # Check if available_ui_layouts is actually iterable (not None)
+    if not isinstance(available_ui_layouts, (list, tuple)):
+        available_ui_layouts = []
+
+    group_uis = program.add_argument_group('uis')
+    
+    group_uis.add_argument('--ui-layouts', 
+                           help = wording.get('help.ui_layouts').format(choices = ', '.join(available_ui_layouts)), 
+                           default = config.get_str_list('uis.ui_layouts', 'default'), 
+                           nargs = '+')
+    
+    group_uis.add_argument('--ui-workflow', 
+                           help = wording.get('help.ui_workflow'), 
+                           default = config.get_str_value('uis.ui_workflow', 'instant_runner'), 
+                           choices = facefusion.choices.ui_workflows)
+    
+    return program
+
 
 
 def create_execution_program() -> ArgumentParser:
